@@ -62,12 +62,12 @@ function buildAccount(){
         const accountName = answer['accountName']
         console.info(answer)
 
-        if(fs.existsSync('accounts')){
+        if(!fs.existsSync('accounts')){
             fs.mkdirSync('accounts')
 
         }
 
-        if(fs.existSyncs(`accounts/${accountName}.json`)){
+        if(fs.existsSync(`accounts/${accountName}.json`)){
             console.log(chalk.bgRed.black("Esta conta já existe! Escolha outro nome."))
             buildAccount()
             return
