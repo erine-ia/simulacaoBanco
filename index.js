@@ -26,6 +26,7 @@ function operation(){
             createAccount()
 
         }else if(action == 'Consultar Saldo'){
+            getAccountBalance()
 
         }else if(action == 'Depositar'){
             deposit()
@@ -157,4 +158,26 @@ function getAccount(accountName){
     })
 
     return JSON.parser(accountJSON)
+}
+
+
+//função para consultar saldo
+function getAccountBalance(){
+    inquirer.prompt([{
+        name:'accountName', 
+        message: 'Qual o nome da sua conta?'
+    }]).then((answer)=>{
+        const accountName = answer['accountName']
+        //verificando se a conta existe
+        if(!checkAccount(accountName)){
+            return getAccountBalance()
+        }
+
+        const accountData = getAccount(accountName)
+
+        console.log('Olá, o saldo da sua conta é R$', accountData.balance )
+        
+        operation()
+    }).catch((err)=>console.log(err))
+    
 }
